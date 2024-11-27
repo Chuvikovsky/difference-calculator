@@ -4,6 +4,7 @@ import { Command } from 'commander';
 import { readFileSync } from 'node:fs';
 import { createAbsolutePath } from './path.js';
 import { getFileExt } from './parse.js';
+import gendiff from './gendiff.js';
 
 export default () => {
   const program = new Command();
@@ -20,11 +21,15 @@ export default () => {
       const path2 = createAbsolutePath(source2);
       const content1 = readFileSync(path1, { encoding: 'utf-8' });
       const content2 = readFileSync(path2, { encoding: 'utf-8' });
-      console.log('source1: ', JSON.parse(content1));
-      console.log('source2: ', JSON.parse(content2));
-      const options = program.opts();
-      console.log(getFileExt(source1), getFileExt(source2));
-      // console.log(cwd());
+      // console.log('source1: ', JSON.parse(content1));
+      // console.log('source2: ', JSON.parse(content2));
+      // const options = program.opts();
+      // console.log(getFileExt(source1), getFileExt(source2));
+      const diffObj = gendiff(JSON.parse(content1), JSON.parse(content2));
+      const result = Object.entries(diffObj).reduce((acc, val) => {
+        return [...acc, `  ${val[0]}: ${val[1]}`];
+      }, []);
+      console.log(['{', ...result, '}'].join('\n'));
     })
     .parse();
 };
