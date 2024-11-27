@@ -11,10 +11,11 @@ export default () => {
 
   program
     .name('gendiff')
+    .version('0.0.1')
     .description('Compares two configuration files and shows a difference.')
-    .argument('<source1>', 'first file to compare')
-    .argument('<source2>', 'second file to compare')
-    .option('-V, --version', 'output the version number')
+    .argument('<file1>', 'first file to compare')
+    .argument('<file2>', 'second file to compare')
+    // .option('-V, --version', 'output the version number')
     .option('-f, --format [type]', 'output format')
     .action((source1, source2) => {
       const path1 = createAbsolutePath(source1);
