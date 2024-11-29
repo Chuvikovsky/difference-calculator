@@ -1,5 +1,3 @@
-const getFileExt = (fileName) => {
-  return fileName.split('.').at(-1).toLowerCase();
-};
+const getFileExt = (fileName) => fileName.split('.').at(-1).toLowerCase();
 
-export { getFileExt };
+export default getFileExt;

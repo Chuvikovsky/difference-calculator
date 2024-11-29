@@ -17,5 +17,6 @@ export default (data1, data2) => {
     if (keys2.includes(k)) {
       return { ...acc, [`+ ${k}`]: data2[k] };
     }
+    return acc;
   }, {});
 };

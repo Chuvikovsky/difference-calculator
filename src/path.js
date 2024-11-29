@@ -1,8 +1,6 @@
 import { cwd } from 'node:process';
 import path from 'node:path';
 
-const createAbsolutePath = (pathToFile) => {
-  return path.resolve(cwd(), pathToFile);
-};
+const createAbsolutePath = (pathToFile) => path.resolve(cwd(), pathToFile);
 
-export { createAbsolutePath };
+export default createAbsolutePath;
