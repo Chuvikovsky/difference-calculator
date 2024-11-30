@@ -27,7 +27,7 @@ export default () => {
       const diffObj = gendiff(JSON.parse(content1), JSON.parse(content2));
       const result = Object.entries(diffObj).reduce(
         (acc, val) => [...acc, `  ${val[0]}: ${val[1]}`],
-        []
+        [],
       );
       console.log(['{', ...result, '}'].join('\n'));
     })
