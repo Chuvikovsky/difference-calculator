@@ -1,0 +1,18 @@
+# file: .github/workflows/front-46-tests.yml
+name: front-46-tests
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+      - run: make install
+      - run: make lint
+      - run: make test
+      - name: Test & publish code coverage
+        uses: paambaati/codeclimate-action@5.0.0
+        env: CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_TESTCOVARAGE }}
+        with:
+          coverageCommand: make test-coverage
+          debug: true
