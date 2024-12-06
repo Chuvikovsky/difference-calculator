@@ -1,7 +1,5 @@
 import { Command } from 'commander';
-import gendiff from './gendiff.js';
-import parse from './parsers.js';
-import showDiff from './show.js';
+import genDiff from './gendiff.js';
 
 export default () => {
   const program = new Command();
@@ -14,10 +12,9 @@ export default () => {
     .argument('<file2>', 'second file to compare')
     .option('-f, --format <type>', 'output format', 'stylish')
     .action((file1, file2) => {
-      const diffObj = gendiff(parse(file1), parse(file2));
       const { format } = program.opts();
-      const result = format === 'stylish' ? showDiff(diffObj) : showDiff(diffObj);
-      console.log(result);
+      const diff = genDiff(file1, file2, format);
+      console.log(diff);
     })
     .parse();
 };

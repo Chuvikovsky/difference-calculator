@@ -1,9 +1,9 @@
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import yaml from 'js-yaml';
-import createAbsolutePath from './path.js';
+import { createAbsolutePath } from '../functions.js';
 
-const parse = (filePath) => {
+export default (filePath) => {
   const ext = path.extname(filePath);
   const absolutePath = createAbsolutePath(filePath);
   const content = readFileSync(absolutePath, { encoding: 'utf-8' });
@@ -17,5 +17,3 @@ const parse = (filePath) => {
       throw new Error(`Unknown file extension ${ext}`);
   }
 };
-
-export default parse;

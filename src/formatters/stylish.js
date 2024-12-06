@@ -1,6 +1,6 @@
-import { isObject } from './gendiff.js';
+import { isObject } from '../functions.js';
 
-const showDiff = (diff) => {
+const showAsStylish = (diff) => {
   const iter = (tree, depth = 1) => {
     const keys = Object.keys(tree);
     return keys.reduce((acc, key) => {
@@ -23,4 +23,4 @@ const showDiff = (diff) => {
   return ['{', ...result, '}'].join('\n');
 };
 
-export default showDiff;
+export default showAsStylish;

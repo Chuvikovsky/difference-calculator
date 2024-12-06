@@ -2,28 +2,40 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import path from 'node:path';
 import gendiff from '../src/gendiff.js';
-import parse from '../src/parsers.js';
-import showDiff from '../src/show.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const PathToFix = (file) => path.join(__dirname, '..', '__fixtures__', file);
+const pathToFix = (file) => path.join(__dirname, '..', '__fixtures__', file);
 
-test('json', () => {
-  const path1 = PathToFix('file1.json');
-  const path2 = PathToFix('file2.json');
+test('json stylish', () => {
+  const path1 = pathToFix('file1.json');
+  const path2 = pathToFix('file2.json');
 
-  const diffObj = gendiff(parse(path1), parse(path2));
-  const result = showDiff(diffObj);
+  const result = gendiff(path1, path2, 'stylish');
   expect(result).toMatchSnapshot();
 });
 
-test('yaml', () => {
-  const path1 = PathToFix('file1.yml');
-  const path2 = PathToFix('file2.yml');
+test('yaml stylish', () => {
+  const path1 = pathToFix('file1.yml');
+  const path2 = pathToFix('file2.yml');
 
-  const diffObj = gendiff(parse(path1), parse(path2));
-  const result = showDiff(diffObj);
+  const result = gendiff(path1, path2, 'stylish');
+  expect(result).toMatchSnapshot();
+});
+
+test('json plain', () => {
+  const path1 = pathToFix('file1.json');
+  const path2 = pathToFix('file2.json');
+
+  const result = gendiff(path1, path2, 'plain');
+  expect(result).toMatchSnapshot();
+});
+
+test('yaml plain', () => {
+  const path1 = pathToFix('file1.yml');
+  const path2 = pathToFix('file2.yml');
+
+  const result = gendiff(path1, path2, 'plain');
   expect(result).toMatchSnapshot();
 });
