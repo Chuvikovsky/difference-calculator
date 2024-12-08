@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`json json 1`] = `"{"common":{"key":"common","status":"same","value":{"follow":{"key":"follow","status":"add","value":false},"setting1":{"key":"setting1","status":"same","value":"Value 1"},"setting2":{"key":"setting2","status":"delete","value":200},"setting3":{"key":"setting3","status":"change","oldValue":true,"newValue":null},"setting4":{"key":"setting4","status":"add","value":"blah blah"},"setting5":{"key":"setting5","status":"add","value":{"key5":"value5"}},"setting6":{"key":"setting6","status":"same","value":{"doge":{"key":"doge","status":"same","value":{"wow":{"key":"wow","status":"change","oldValue":"","newValue":"so much"}}},"key":{"key":"key","status":"same","value":"value"},"ops":{"key":"ops","status":"add","value":"vops"}}}}},"group1":{"key":"group1","status":"same","value":{"baz":{"key":"baz","status":"change","oldValue":"bas","newValue":"bars"},"foo":{"key":"foo","status":"same","value":"bar"},"nest":{"key":"nest","status":"change","oldValue":{"key":"value"},"newValue":"str"}}},"group2":{"key":"group2","status":"delete","value":{"abc":12345,"deep":{"id":45}}},"group3":{"key":"group3","status":"add","value":{"deep":{"id":{"number":45}},"fee":100500}}}"`;
+
 exports[`json plain 1`] = `
 "Property 'common.follow' was added with value: false
 Property 'common.setting2' was removed
@@ -61,6 +63,8 @@ exports[`json stylish 1`] = `
 }"
 `;
 
+exports[`yaml json 1`] = `"{"common":{"key":"common","status":"same","value":{"follow":{"key":"follow","status":"add","value":false},"setting1":{"key":"setting1","status":"same","value":"Value 1"},"setting2":{"key":"setting2","status":"delete","value":200},"setting3":{"key":"setting3","status":"change","oldValue":true,"newValue":null},"setting4":{"key":"setting4","status":"add","value":"blah blah"},"setting5":{"key":"setting5","status":"add","value":{"key5":"value5"}},"setting6":{"key":"setting6","status":"same","value":{"doge":{"key":"doge","status":"same","value":{"wow":{"key":"wow","status":"change","oldValue":"","newValue":"so much"}}},"key":{"key":"key","status":"same","value":"value"},"ops":{"key":"ops","status":"add","value":"vops"}}}}},"group1":{"key":"group1","status":"same","value":{"baz":{"key":"baz","status":"change","oldValue":"bas","newValue":"bars"},"foo":{"key":"foo","status":"same","value":"bar"},"nest":{"key":"nest","status":"change","oldValue":{"key":"value"},"newValue":"str"}}},"group2":{"key":"group2","status":"delete","value":{"abc":12345,"deep":{"id":45}}},"group3":{"key":"group3","status":"add","value":{"deep":{"id":{"number":45}},"fee":100500}}}"`;
+
 exports[`yaml plain 1`] = `
 "Property 'common.follow' was added with value: false
 Property 'common.setting2' was removed
@@ -76,6 +80,53 @@ Property 'group3' was added with value: [complex value]"
 `;
 
 exports[`yaml stylish 1`] = `
+"{
+    common: {
+      + follow: false
+        setting1: Value 1
+      - setting2: 200
+      - setting3: true
+      + setting3: null
+      + setting4: blah blah
+      + setting5: {
+            key5: value5
+        }
+        setting6: {
+            doge: {
+              - wow: 
+              + wow: so much
+            }
+            key: value
+          + ops: vops
+        }
+    }
+    group1: {
+      - baz: bas
+      + baz: bars
+        foo: bar
+      - nest: {
+            key: value
+        }
+      + nest: str
+    }
+  - group2: {
+        abc: 12345
+        deep: {
+            id: 45
+        }
+    }
+  + group3: {
+        deep: {
+            id: {
+                number: 45
+            }
+        }
+        fee: 100500
+    }
+}"
+`;
+
+exports[`yaml stylish with .yaml file 1`] = `
 "{
     common: {
       + follow: false

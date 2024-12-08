@@ -7,8 +7,10 @@
 
 [asciinema with flat json file](https://asciinema.org/a/N4hVylGldcCTFWzpTz4PwQaTg)
 
-[asciinema with flat yaml file](https://asciinema.org/a/2qFqMQeVcFDSLUUcd4XUc5J2F
+[asciinema with flat yaml file](https://asciinema.org/a/2qFqMQeVcFDSLUUcd4XUc5J2F)
 
 [asciinema with nested files](https://asciinema.org/a/7oyT9lyhfe2YXqcupEE0ngGCP)
 
 [asciinema with plain format](https://asciinema.org/a/YUEUfArvDkv3c2f3FnGJ8eJVl)
+
+[asciinema with json format](https://asciinema.org/a/kcEbzSyhEZQxZGSTMBxltPM73)
