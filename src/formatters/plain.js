@@ -1,8 +1,8 @@
-import { isObject, getKey } from '../functions.js';
+import { isObject } from '../utils.js';
 
 const checkValue = (value) => {
   if ([null, true, false].includes(value)) {
-    return value;
+    return String(value);
   }
   if (isObject(value)) {
     return '[complex value]';
@@ -10,48 +10,48 @@ const checkValue = (value) => {
   return `'${value}'`;
 };
 
-const getAddSentence = (prop, value) => `Property '${prop}' was added with value: ${checkValue(value)}`;
+const getAddedSentence = (prop, value) => `Property '${prop}' was added with value: ${checkValue(value)}`;
 
-const getRemoveSentence = (prop) => `Property '${prop}' was removed`;
+const getDeletedSentence = (prop) => `Property '${prop}' was removed`;
 
 const getUpdateSentence = (prop, oldValue, newValue) => `Property '${prop}' was updated. From ${checkValue(oldValue)} to ${checkValue(newValue)}`;
 
-const showPlainDiff = (diffTree) => {
-  const iter = (node, parent = []) => {
-    const keys = Object.keys(node);
-    const result = keys.reduce((acc, key) => {
-      const sign = key.at(-1);
-      const isNodeObj = isObject(node[key]);
-      const value = node[key];
-      const propPath = [...parent, getKey(key)].join('.');
-      if (sign === '-') {
-        const plusKey = `${getKey(key)}+`;
-        const newValue = node[plusKey];
-        if (newValue === undefined) {
-          return [...acc, getRemoveSentence(propPath)];
-        }
-        return [...acc, getUpdateSentence(propPath, value, newValue)];
+const getFormattedPlain = (plainList) => plainList.map(({ path, status, value }) => {
+  switch (status) {
+    case 'added':
+      return getAddedSentence(path, value);
+    case 'deleted':
+      return getDeletedSentence(path);
+    case 'updated':
+      return getUpdateSentence(path, value.oldValue, value.newValue);
+    default:
+      throw new Error(`Unknown status type: ${status}`);
+  }
+});
+
+const showPlain = (diffObj) => {
+  const iter = (node, parent = '') => {
+    const result = node.flatMap((obj) => {
+      const { key, status, end } = obj;
+      const update = obj.update ?? false;
+      const path = parent === '' ? key : `${parent}.${key}`;
+      if (['deleted', 'added'].includes(status) && !update) {
+        return { path, status, value: obj.value };
       }
-      if (sign === '+' && isNodeObj) {
-        return [...acc, getAddSentence(propPath, value)];
+      if (status === 'updated') {
+        return {
+          path, status, value: obj.value,
+        };
       }
-      if (sign === '=' && !isNodeObj) {
-        return [...acc];
+      if (end) {
+        return [];
       }
-      if (sign === '+' && !isNodeObj) {
-        const minusKey = `${getKey(key)}-`;
-        const oldValue = node[minusKey];
-        if (oldValue === undefined) {
-          return [...acc, getAddSentence(propPath, value)];
-        }
-        return [...acc];
-      }
-      return [...acc, ...iter(node[key], [...parent, getKey(key)])];
-    }, []);
+      return iter(obj.value, path);
+    });
     return result;
   };
-  const result = iter(diffTree, []);
-  return result.join('\n');
+  const plainList = iter(diffObj);
+  return getFormattedPlain(plainList).join('\n');
 };
 
-export default showPlainDiff;
+export default showPlain;

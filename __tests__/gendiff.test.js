@@ -12,39 +12,33 @@ const path1Json = pathToFix('file1.json');
 const path2Json = pathToFix('file2.json');
 const path1Yml = pathToFix('file1.yml');
 const path2Yml = pathToFix('file2.yml');
+const path1Yaml = pathToFix('file1.yaml');
+const path2Yaml = pathToFix('file2.yaml');
 
-test('json stylish', () => {
-  const result = gendiff(path1Json, path2Json, 'stylish');
-  expect(result).toMatchSnapshot();
-});
-
-test('yaml stylish', () => {
-  const result = gendiff(path1Yml, path2Yml, 'stylish');
-  expect(result).toMatchSnapshot();
-});
-
-test('yaml stylish with .yaml file', () => {
-  const result = gendiff(path1Yml, path2Yml, 'stylish');
-  expect(result).toMatchSnapshot();
-});
-
-test('json plain', () => {
-  const result = gendiff(path1Json, path2Json, 'plain');
-  expect(result).toMatchSnapshot();
-});
-
-test('yaml plain', () => {
-  const result = gendiff(path1Yml, path2Yml, 'plain');
-  expect(result).toMatchSnapshot();
-});
-
-test('json json', () => {
-  const result = gendiff(path1Json, path2Json, 'json');
-  expect(result).toMatchSnapshot();
-});
-
-test('yaml json', () => {
-  const result = gendiff(path1Yml, path2Yml, 'json');
+test.each([
+  {
+    name: 'json stylish', file1: path1Json, file2: path2Json, style: 'stylish',
+  },
+  {
+    name: 'yaml stylish', file1: path1Yml, file2: path2Yml, style: 'stylish',
+  },
+  {
+    name: 'yaml stylish with .yaml file', file1: path1Yaml, file2: path2Yaml, style: 'stylish',
+  },
+  {
+    name: 'json plain', file1: path1Json, file2: path2Json, style: 'plain',
+  },
+  {
+    name: 'yaml plain', file1: path1Yml, file2: path2Yml, style: 'plain',
+  },
+  {
+    name: 'json json', file1: path1Json, file2: path2Json, style: 'json',
+  },
+  {
+    name: 'yaml json', file1: path1Yml, file2: path2Yml, style: 'json',
+  },
+])('$name', ({ file1, file2, style }) => {
+  const result = gendiff(file1, file2, style);
   expect(result).toMatchSnapshot();
 });
 

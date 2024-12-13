@@ -1,15 +1,15 @@
-import getStylish from './stylish.js';
-import getPlain from './plain.js';
-import getJson from './json.js';
+import stylish from './stylish.js';
+import plain from './plain.js';
+import json from './json.js';
 
 export default (diffTree, style) => {
   switch (style) {
     case 'stylish':
-      return getStylish(diffTree);
+      return stylish(diffTree);
     case 'plain':
-      return getPlain(diffTree);
+      return plain(diffTree);
     case 'json':
-      return getJson(diffTree);
+      return json(diffTree);
     default:
       throw new Error(`Unknown style type: ${style}`);
   }

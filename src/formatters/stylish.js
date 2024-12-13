@@ -1,26 +1,48 @@
-import { isObject } from '../functions.js';
+import { isObject } from '../utils.js';
 
-const showAsStylish = (diff) => {
-  const iter = (tree, depth = 1) => {
-    const keys = Object.keys(tree);
-    return keys.reduce((acc, key) => {
-      const sign = key.slice(-1) === '=' ? ' ' : key.slice(-1);
-      const k = key.slice(0, -1);
-      const rept = depth > 0 ? depth * 4 - 2 : depth;
-      const padding = `${' '.repeat(rept)}`;
-      if (!isObject(tree[key])) {
-        return [...acc, `${padding}${sign} ${k}: ${tree[key]}`];
-      }
-      return [
-        ...acc,
-        `${padding}${sign} ${k}: {`,
-        iter(tree[key], depth + 1),
-        `${padding}  }`,
-      ].flat();
-    }, []);
-  };
-  const result = iter(diff, 1);
+const statuses = {
+  added: '+',
+  deleted: '-',
+  changed: ' ',
+  unchanged: ' ',
+};
+
+const generatePadding = (depth) => {
+  const repeat = depth > 0 ? depth * 4 - 2 : depth;
+  return `${' '.repeat(repeat)}`;
+};
+
+const showStylishObj = (obj, depth) => {
+  const keys = Object.keys(obj);
+  const result = keys.reduce((acc, key) => {
+    const padding = generatePadding(depth);
+    if (!isObject(obj[key])) {
+      return [...acc, `${padding}  ${key}: ${obj[key]}`];
+    }
+    return [...acc, `${padding}  ${key}: {`, ...showStylishObj(obj[key], depth + 1), `${padding}  }`];
+  }, []);
+  return result;
+};
+
+const showStylish = (diffObj) => {
+  const iter = (tree, depth = 1) => tree.flatMap((obj) => {
+    const {
+      key, status, value, end,
+    } = obj;
+    if (status === 'updated') {
+      return [];
+    }
+    const padding = generatePadding(depth);
+    if (!end) {
+      return [`${padding}${statuses[status]} ${key}: {`, ...iter(value, depth + 1), `${padding}  }`];
+    }
+    if (isObject(value)) {
+      return [`${padding}${statuses[status]} ${key}: {`, ...showStylishObj(value, depth + 1), `${padding}  }`];
+    }
+    return [`${padding}${statuses[status]} ${key}: ${value}`];
+  });
+  const result = iter(diffObj, 1);
   return ['{', ...result, '}'].join('\n');
 };
 
-export default showAsStylish;
+export default showStylish;
