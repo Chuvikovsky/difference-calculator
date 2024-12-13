@@ -4,7 +4,7 @@ const parser = (data1, data2) => {
   const keys1 = Object.keys(data1);
   const keys2 = Object.keys(data2);
   const commonKeys = keys1.filter((key) => keys2.includes(key));
-  const allKeys = Array.from(new Set([...keys1, ...keys2])).sort();
+  const allKeys = Array.from(new Set([...keys1, ...keys2])).toSorted();
   return allKeys.reduce((acc, key) => {
     if (commonKeys.includes(key)) {
       if (data1[key] === data2[key]) {
