@@ -23,7 +23,7 @@ test.each([
     name: 'yaml stylish', file1: path1Yml, file2: path2Yml, style: 'stylish',
   },
   {
-    name: 'yaml stylish with .yaml file', file1: path1Yaml, file2: path2Yaml, style: 'stylish',
+    name: 'yaml stylish with .yaml file', file1: path1Yaml, file2: path2Yaml, style: '',
   },
   {
     name: 'json plain', file1: path1Json, file2: path2Json, style: 'plain',
@@ -37,17 +37,12 @@ test.each([
   {
     name: 'yaml json', file1: path1Yml, file2: path2Yml, style: 'json',
   },
+  {
+    name: 'yaml txt formatter', file1: path1Yml, file2: path2Yml, style: 'txt',
+  },
 ])('$name', ({ file1, file2, style }) => {
   const result = gendiff(file1, file2, style);
   expect(result).toMatchSnapshot();
-});
-
-test('yaml txt formatter', () => {
-  expect(() => { gendiff(path1Yml, path2Yml, 'txt'); }).toThrow();
-});
-
-test('json txt formatter', () => {
-  expect(() => { gendiff(path1Json, path2Json, 'txt'); }).toThrow();
 });
 
 test('unknown file extenstion', () => {

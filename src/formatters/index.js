@@ -4,13 +4,12 @@ import json from './json.js';
 
 export default (diffTree, style) => {
   switch (style) {
-    case 'stylish':
-      return stylish(diffTree);
     case 'plain':
       return plain(diffTree);
     case 'json':
       return json(diffTree);
+    case 'stylish':
     default:
-      throw new Error(`Unknown style type: ${style}`);
+      return stylish(diffTree);
   }
 };
