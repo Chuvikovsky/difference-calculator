@@ -7,6 +7,9 @@ const checkValue = (value) => {
   if (isObject(value)) {
     return '[complex value]';
   }
+  if (typeof value === 'number') {
+    return value;
+  }
   return `'${value}'`;
 };
 
