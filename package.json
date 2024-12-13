@@ -2,7 +2,7 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "diff project",
-  "main": "src/index.js",
+  "main": "src/gendiff.js",
   "scripts": {
     "test": "npx jest"
   },
