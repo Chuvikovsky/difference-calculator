@@ -1,6 +1,173 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`json json 1`] = `"{"common":{"status":"unchanged","value":{"follow":{"status":"added","value":false},"setting1":{"status":"unchanged","value":"Value 1"},"setting2":{"status":"deleted","value":200},"setting3":{"status":"updated","value":{"oldValue":true,"newValue":null}},"setting4":{"status":"added","value":"blah blah"},"setting5":{"status":"added","value":{"key5":"value5"}},"setting6":{"status":"unchanged","value":{"doge":{"status":"unchanged","value":{"wow":{"status":"updated","value":{"oldValue":"","newValue":"so much"}}}},"key":{"status":"unchanged","value":"value"},"ops":{"status":"added","value":"vops"}}}}},"group1":{"status":"unchanged","value":{"baz":{"status":"updated","value":{"oldValue":"bas","newValue":"bars"}},"foo":{"status":"unchanged","value":"bar"},"nest":{"status":"updated","value":{"oldValue":{"key":"value"},"newValue":"str"}}}},"group2":{"status":"deleted","value":{"abc":12345,"deep":{"id":45}}},"group3":{"status":"added","value":{"deep":{"id":{"number":45}},"fee":100500}}}"`;
+exports[`json json 1`] = `
+"[
+  {
+    "key": "common",
+    "status": "unchanged",
+    "value": [
+      {
+        "key": "follow",
+        "status": "added",
+        "value": false
+      },
+      {
+        "key": "setting1",
+        "status": "unchanged",
+        "value": "Value 1"
+      },
+      {
+        "key": "setting2",
+        "status": "deleted",
+        "value": 200
+      },
+      {
+        "key": "setting3",
+        "status": "deleted",
+        "value": true
+      },
+      {
+        "key": "setting3",
+        "status": "added",
+        "value": null
+      },
+      {
+        "key": "setting3",
+        "status": "updated",
+        "value": {
+          "oldValue": true,
+          "newValue": null
+        }
+      },
+      {
+        "key": "setting4",
+        "status": "added",
+        "value": "blah blah"
+      },
+      {
+        "key": "setting5",
+        "status": "added",
+        "value": {
+          "key5": "value5"
+        }
+      },
+      {
+        "key": "setting6",
+        "status": "unchanged",
+        "value": [
+          {
+            "key": "doge",
+            "status": "unchanged",
+            "value": [
+              {
+                "key": "wow",
+                "status": "deleted",
+                "value": ""
+              },
+              {
+                "key": "wow",
+                "status": "added",
+                "value": "so much"
+              },
+              {
+                "key": "wow",
+                "status": "updated",
+                "value": {
+                  "oldValue": "",
+                  "newValue": "so much"
+                }
+              }
+            ]
+          },
+          {
+            "key": "key",
+            "status": "unchanged",
+            "value": "value"
+          },
+          {
+            "key": "ops",
+            "status": "added",
+            "value": "vops"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "key": "group1",
+    "status": "unchanged",
+    "value": [
+      {
+        "key": "baz",
+        "status": "deleted",
+        "value": "bas"
+      },
+      {
+        "key": "baz",
+        "status": "added",
+        "value": "bars"
+      },
+      {
+        "key": "baz",
+        "status": "updated",
+        "value": {
+          "oldValue": "bas",
+          "newValue": "bars"
+        }
+      },
+      {
+        "key": "foo",
+        "status": "unchanged",
+        "value": "bar"
+      },
+      {
+        "key": "nest",
+        "status": "deleted",
+        "value": {
+          "key": "value"
+        }
+      },
+      {
+        "key": "nest",
+        "status": "added",
+        "value": "str"
+      },
+      {
+        "key": "nest",
+        "status": "updated",
+        "value": {
+          "oldValue": {
+            "key": "value"
+          },
+          "newValue": "str"
+        }
+      }
+    ]
+  },
+  {
+    "key": "group2",
+    "status": "deleted",
+    "value": {
+      "abc": 12345,
+      "deep": {
+        "id": 45
+      }
+    }
+  },
+  {
+    "key": "group3",
+    "status": "added",
+    "value": {
+      "deep": {
+        "id": {
+          "number": 45
+        }
+      },
+      "fee": 100500
+    }
+  }
+]"
+`;
 
 exports[`json plain 1`] = `
 "Property 'common.follow' was added with value: false
@@ -63,7 +230,174 @@ exports[`json stylish 1`] = `
 }"
 `;
 
-exports[`yaml json 1`] = `"{"common":{"status":"unchanged","value":{"follow":{"status":"added","value":false},"setting1":{"status":"unchanged","value":"Value 1"},"setting2":{"status":"deleted","value":200},"setting3":{"status":"updated","value":{"oldValue":true,"newValue":null}},"setting4":{"status":"added","value":"blah blah"},"setting5":{"status":"added","value":{"key5":"value5"}},"setting6":{"status":"unchanged","value":{"doge":{"status":"unchanged","value":{"wow":{"status":"updated","value":{"oldValue":"","newValue":"so much"}}}},"key":{"status":"unchanged","value":"value"},"ops":{"status":"added","value":"vops"}}}}},"group1":{"status":"unchanged","value":{"baz":{"status":"updated","value":{"oldValue":"bas","newValue":"bars"}},"foo":{"status":"unchanged","value":"bar"},"nest":{"status":"updated","value":{"oldValue":{"key":"value"},"newValue":"str"}}}},"group2":{"status":"deleted","value":{"abc":12345,"deep":{"id":45}}},"group3":{"status":"added","value":{"deep":{"id":{"number":45}},"fee":100500}}}"`;
+exports[`yaml json 1`] = `
+"[
+  {
+    "key": "common",
+    "status": "unchanged",
+    "value": [
+      {
+        "key": "follow",
+        "status": "added",
+        "value": false
+      },
+      {
+        "key": "setting1",
+        "status": "unchanged",
+        "value": "Value 1"
+      },
+      {
+        "key": "setting2",
+        "status": "deleted",
+        "value": 200
+      },
+      {
+        "key": "setting3",
+        "status": "deleted",
+        "value": true
+      },
+      {
+        "key": "setting3",
+        "status": "added",
+        "value": null
+      },
+      {
+        "key": "setting3",
+        "status": "updated",
+        "value": {
+          "oldValue": true,
+          "newValue": null
+        }
+      },
+      {
+        "key": "setting4",
+        "status": "added",
+        "value": "blah blah"
+      },
+      {
+        "key": "setting5",
+        "status": "added",
+        "value": {
+          "key5": "value5"
+        }
+      },
+      {
+        "key": "setting6",
+        "status": "unchanged",
+        "value": [
+          {
+            "key": "doge",
+            "status": "unchanged",
+            "value": [
+              {
+                "key": "wow",
+                "status": "deleted",
+                "value": ""
+              },
+              {
+                "key": "wow",
+                "status": "added",
+                "value": "so much"
+              },
+              {
+                "key": "wow",
+                "status": "updated",
+                "value": {
+                  "oldValue": "",
+                  "newValue": "so much"
+                }
+              }
+            ]
+          },
+          {
+            "key": "key",
+            "status": "unchanged",
+            "value": "value"
+          },
+          {
+            "key": "ops",
+            "status": "added",
+            "value": "vops"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "key": "group1",
+    "status": "unchanged",
+    "value": [
+      {
+        "key": "baz",
+        "status": "deleted",
+        "value": "bas"
+      },
+      {
+        "key": "baz",
+        "status": "added",
+        "value": "bars"
+      },
+      {
+        "key": "baz",
+        "status": "updated",
+        "value": {
+          "oldValue": "bas",
+          "newValue": "bars"
+        }
+      },
+      {
+        "key": "foo",
+        "status": "unchanged",
+        "value": "bar"
+      },
+      {
+        "key": "nest",
+        "status": "deleted",
+        "value": {
+          "key": "value"
+        }
+      },
+      {
+        "key": "nest",
+        "status": "added",
+        "value": "str"
+      },
+      {
+        "key": "nest",
+        "status": "updated",
+        "value": {
+          "oldValue": {
+            "key": "value"
+          },
+          "newValue": "str"
+        }
+      }
+    ]
+  },
+  {
+    "key": "group2",
+    "status": "deleted",
+    "value": {
+      "abc": 12345,
+      "deep": {
+        "id": 45
+      }
+    }
+  },
+  {
+    "key": "group3",
+    "status": "added",
+    "value": {
+      "deep": {
+        "id": {
+          "number": 45
+        }
+      },
+      "fee": 100500
+    }
+  }
+]"
+`;
 
 exports[`yaml plain 1`] = `
 "Property 'common.follow' was added with value: false

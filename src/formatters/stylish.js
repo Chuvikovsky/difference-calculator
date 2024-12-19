@@ -7,8 +7,11 @@ const statuses = {
   unchanged: ' ',
 };
 
+const indentation = 4;
+const spaceForSign = 2;
+
 const generatePadding = (depth) => {
-  const repeat = depth > 0 ? depth * 4 - 2 : depth;
+  const repeat = depth > 0 ? depth * indentation - spaceForSign : depth;
   return `${' '.repeat(repeat)}`;
 };
 
@@ -27,16 +30,16 @@ const showStylishObj = (obj, depth) => {
 const showStylish = (diffObj) => {
   const iter = (tree, depth = 1) => tree.flatMap((obj) => {
     const {
-      key, status, value, end,
+      key, status, value, hasChildren = false, isValueObject = false,
     } = obj;
     if (status === 'updated') {
       return [];
     }
     const padding = generatePadding(depth);
-    if (!end) {
+    if (hasChildren) {
       return [`${padding}${statuses[status]} ${key}: {`, ...iter(value, depth + 1), `${padding}  }`];
     }
-    if (isObject(value)) {
+    if (isValueObject) {
       return [`${padding}${statuses[status]} ${key}: {`, ...showStylishObj(value, depth + 1), `${padding}  }`];
     }
     return [`${padding}${statuses[status]} ${key}: ${value}`];

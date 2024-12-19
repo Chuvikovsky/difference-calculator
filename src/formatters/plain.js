@@ -1,14 +1,11 @@
 import { isObject } from '../utils.js';
 
 const checkValue = (value) => {
-  if ([null, true, false].includes(value)) {
+  if ([null, true, false].includes(value) || typeof value === 'number') {
     return String(value);
   }
   if (isObject(value)) {
     return '[complex value]';
-  }
-  if (typeof value === 'number') {
-    return value;
   }
   return `'${value}'`;
 };
@@ -17,44 +14,35 @@ const getAddedSentence = (prop, value) => `Property '${prop}' was added with val
 
 const getDeletedSentence = (prop) => `Property '${prop}' was removed`;
 
-const getUpdateSentence = (prop, oldValue, newValue) => `Property '${prop}' was updated. From ${checkValue(oldValue)} to ${checkValue(newValue)}`;
-
-const getFormattedPlain = (plainList) => plainList.map(({ path, status, value }) => {
-  switch (status) {
-    case 'added':
-      return getAddedSentence(path, value);
-    case 'deleted':
-      return getDeletedSentence(path);
-    case 'updated':
-      return getUpdateSentence(path, value.oldValue, value.newValue);
-    default:
-      throw new Error(`Unknown status type: ${status}`);
-  }
-});
+const getUpdateSentence = (prop, oldValue, newValue) => `Property '${prop}' was updated. From ${checkValue(oldValue)} to ${checkValue(
+  newValue,
+)}`;
 
 const showPlain = (diffObj) => {
   const iter = (node, parent = '') => {
-    const result = node.flatMap((obj) => {
-      const { key, status, end } = obj;
-      const update = obj.update ?? false;
+    const result = node.reduce((acc, obj) => {
+      const {
+        key, status, value, hasChildren = false,
+      } = obj;
       const path = parent === '' ? key : `${parent}.${key}`;
-      if (['deleted', 'added'].includes(status) && !update) {
-        return { path, status, value: obj.value };
+      if (status === 'added') {
+        return { ...acc, [path]: getAddedSentence(path, value) };
+      }
+      if (status === 'deleted') {
+        return { ...acc, [path]: getDeletedSentence(path, value) };
       }
       if (status === 'updated') {
-        return {
-          path, status, value: obj.value,
-        };
+        return { ...acc, [path]: getUpdateSentence(path, value.oldValue, value.newValue) };
       }
-      if (end) {
-        return [];
+      if (hasChildren) {
+        return { ...acc, ...iter(value, path) };
       }
-      return iter(obj.value, path);
-    });
+      return { ...acc };
+    }, {});
     return result;
   };
-  const plainList = iter(diffObj);
-  return getFormattedPlain(plainList).join('\n');
+  const plainObj = iter(diffObj);
+  return Object.values(plainObj).join('\n');
 };
 
 export default showPlain;

@@ -1,15 +1,10 @@
-const getJson = (diffObj) => diffObj.reduce((acc, {
-  key, status, value, end,
-}) => {
-  if (status === 'updated') {
-    return { ...acc, [key]: { status, value } };
+const replacer = (key, value) => {
+  if (key === 'hasChildren' || key === 'isValueObject') {
+    return undefined;
   }
-  if (end) {
-    return { ...acc, [key]: { status, value } };
-  }
-  return { ...acc, [key]: { status, value: getJson(value) } };
-}, {});
+  return value;
+};
 
-const showJsonDiff = (diffObj) => JSON.stringify(getJson(diffObj));
+const showJsonDiff = (diffObj) => JSON.stringify(diffObj, replacer, '  ');
 
 export default showJsonDiff;
