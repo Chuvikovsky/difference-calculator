@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npx jest"
   },
-  "author": "",
+  "author": "Dmitry Chuvikovskiy",
   "license": "ISC",
   "type": "module",
   "bin": {
